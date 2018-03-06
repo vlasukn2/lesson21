@@ -18,6 +18,11 @@ class PageController
             throw new \Exception("File '$path' doesn't exist.");
         }
 
-        return file_get_contents($path);
+//        return file_get_contents($path);
+        ob_start();
+        include $path;
+        $result = ob_get_clean();
+
+        return $result;
     }
 }

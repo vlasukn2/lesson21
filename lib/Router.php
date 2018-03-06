@@ -9,12 +9,13 @@ namespace lib;
 
 class Router
 {
-    private $controller;
-    private $action;
-    private $params;
+    protected $controller;
+    protected $action;
+    protected $params;
 
     public function parseUrl($uri)
     {
+//        list($a, $b) = ['hello', 'world'];
         list($this->controller, $this->action) = explode('/', $uri['r']);
         $this->params = $uri;
     }

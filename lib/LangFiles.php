@@ -9,10 +9,9 @@
 namespace lib;
 
 
-class Lang
+class LangFiles
 {
     private $langs = [];
-    private $lang;
     private static $instance;
 
     private function __construct() {}
@@ -28,13 +27,12 @@ class Lang
 
     public function load($lang)
     {
-        $this->lang = $lang;
-        $this->langs = include "../lang/lang.php";
+        $this->langs = include "../lang/$lang.php";
     }
 
     public function translate($phrase, $default = '')
     {
-        $result = @$this->langs["{$this->lang}.$phrase"];
+        $result = @$this->langs[$phrase];
         if (!$result) {
             return $default;
         }

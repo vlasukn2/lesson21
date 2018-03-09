@@ -31,8 +31,7 @@ class App
 //        $params         = $router->getParams();
 
 
-        $lang = new Lang();
-        $lang->load( $router->getLang() );
+        LangFiles::getInstance()->load( $router->getLang() );
 
 
         $controllerName = "controller\\$controllerName";
@@ -45,7 +44,7 @@ class App
 
         $innerView = new View( $router->getController(), $router->getAction() );
         $innerData = $controller->getData();
-        $innerData['lang'] = $lang;
+//        $innerData['lang'] = $lang;
         $content = $innerView->render($innerData, $path);
 
 

@@ -9,7 +9,7 @@
 namespace lib;
 
 
-class Controller
+abstract class Controller
 {
     protected $data = [];
 

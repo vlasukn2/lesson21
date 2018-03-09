@@ -5,3 +5,7 @@ body {
     padding: 40px 15px;
     text-align: center;
 }
+.contact-form {
+    /*max-width: 400px;*/
+    width: 400px;
+}

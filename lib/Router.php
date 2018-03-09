@@ -11,7 +11,7 @@ class Router
 {
     protected $controller;
     protected $action;
-    protected $params;
+    protected $params = [];
 
     public function parseUrl($uri)
     {

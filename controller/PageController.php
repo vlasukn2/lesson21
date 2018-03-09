@@ -1,5 +1,7 @@
 <?php
 namespace controller;
+use lib\Controller;
+
 /**
  * Created by PhpStorm.
  * User: n.vlasuk
@@ -7,7 +9,7 @@ namespace controller;
  * Time: 19:38
  */
 
-class PageController
+class PageController extends Controller
 {
     public function staticAction($params = [])
     {
@@ -24,5 +26,12 @@ class PageController
         $result = ob_get_clean();
 
         return $result;
+    }
+
+    public function indexAction()
+    {
+        $this->data['message'] = 'Hello world';
+
+//        return 'adsfasd/fasdf.php';
     }
 }

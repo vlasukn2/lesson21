@@ -18,19 +18,45 @@ class UriRouter extends Router
 
     public function parseUrl($uri)
     {
+        $this->setUpDefaults();
+
+
         $uri = $this->cutBasePath($uri);
         $uri = trim($uri, '/');
 
         $parts = explode('/', $uri);
 
-        $route = $parts[0];
+        $uriPart = array_shift($parts);
 
         $allowedRoutes = Config::get('routes');
         $allowedRoutes = array_keys($allowedRoutes);
 
-        if (in_array($route, $allowedRoutes)) {
-            $this->route = $route;
+        $allowedLangs = Config::get('langs');
+
+
+        if (in_array($uriPart, $allowedRoutes)) {
+            $this->route = $uriPart;
+            $uriPart = @array_shift($parts);
         }
+
+        if (in_array($uriPart, $allowedLangs)) {
+            $this->lang = $uriPart;
+            $uriPart = @array_shift($parts);
+        }
+
+        if ($uriPart) {
+            $this->controller = $uriPart;
+            $uriPart = @array_shift($parts);
+        }
+
+        if ($uriPart) {
+            $this->action = $uriPart;
+        }
+
+        if ($parts) {
+            $this->params = $parts;
+        }
+
     }
 
     private function cutBasePath($path)
@@ -58,5 +84,12 @@ class UriRouter extends Router
         return $this->lang;
     }
 
+    private function setUpDefaults()
+    {
+        $this->route      = 'default';
+        $this->lang       = Config::get('default_lang');
+        $this->controller = 'page';
+        $this->action     = 'index';
+    }
 
 }

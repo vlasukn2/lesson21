@@ -2,6 +2,7 @@
 
 use lib\Lang;
 use lib\LangFiles;
+use lib\Session;
 
 function __($phrase, $default = '') {
 
@@ -9,4 +10,11 @@ function __($phrase, $default = '') {
     $lang = LangFiles::getInstance();
 
     return $lang->translate($phrase, $default);
+}
+
+function getFlash() {
+
+    $ses = Session::getInstance();
+
+    return $ses->get('flash', true);
 }

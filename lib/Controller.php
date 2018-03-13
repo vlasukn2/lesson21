@@ -43,4 +43,8 @@ abstract class Controller
     {
         Router::redirect($url, $code);
     }
+
+    protected function setFlash($msg) {
+        Session::getInstance()->set('flash', $msg);
+    }
 }

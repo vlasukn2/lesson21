@@ -39,6 +39,12 @@
 
 <div class="container">
 
+    <? if ($msg = getFlash()) {?>
+        <div class="alert alert-success">
+            <?=$msg?>
+        </div>
+    <?}?>
+
     <div class="row">
         <?=$data['content']?>
     </div>

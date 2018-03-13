@@ -44,4 +44,10 @@ class Router
         return $this->params;
     }
 
+    public static function redirect($url, $code = 302)
+    {
+        header("Location: " . $url, true, $code);
+        exit();
+    }
+
 }

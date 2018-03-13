@@ -38,4 +38,9 @@ abstract class Controller
 
         return new DB($params);
     }
+
+    protected function redirect($url, $code = 302)
+    {
+        Router::redirect($url, $code);
+    }
 }

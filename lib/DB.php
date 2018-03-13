@@ -34,6 +34,12 @@ class DB
             exit;
         }
 
+        foreach (['insert', 'update', 'delete'] as $word) {
+            $str = strtolower($sql);
+            if (strpos($str, $word) === 0) {
+                return true;
+            }
+        }
 
         $res = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

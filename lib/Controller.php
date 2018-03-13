@@ -12,6 +12,8 @@ namespace lib;
 abstract class Controller
 {
     protected $data = [];
+    protected $model;
+    protected $params = [];
 
     /**
      * @return array
@@ -21,4 +23,19 @@ abstract class Controller
         return $this->data;
     }
 
+    /**
+     * @param array $params
+     */
+    public function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+
+    protected function getDB()
+    {
+        $params = Config::get('db');
+
+        return new DB($params);
+    }
 }

@@ -38,6 +38,7 @@ class App
 
         /** @var Controller $controller */
         $controller = new $controllerName();
+        $controller->setParams( $router->getParams() );
         $path = $controller->$actionName();
 
 

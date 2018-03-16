@@ -54,4 +54,15 @@ class PageController extends Controller
 
         $this->data['page'] = $this->model->getPageByAlias($alias);
     }
+
+    public function admin_indexAction()
+    {
+        $this->data['pages'] = $this->model->getAllPages();
+    }
+
+    public function admin_editAction()
+    {
+        $id = @$this->params[0];
+        $this->data['page'] = $this->model->findById($id);
+    }
 }

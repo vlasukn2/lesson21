@@ -27,7 +27,7 @@ class App
         $router->parseUrl($params);
 
         $controllerName = ucfirst($router->getController()) . 'Controller';
-        $actionName     = $router->getAction() . 'Action';
+        $actionName     = $router->getPrefix() . $router->getAction() . 'Action';
 //        $params         = $router->getParams();
 
 
@@ -43,7 +43,7 @@ class App
 
 
 
-        $innerView = new View( $router->getController(), $router->getAction() );
+        $innerView = new View( $router->getController(), $router->getPrefix() . $router->getAction() );
         $innerData = $controller->getData();
 //        $innerData['lang'] = $lang;
         $content = $innerView->render($innerData, $path);

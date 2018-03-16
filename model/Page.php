@@ -39,4 +39,17 @@ class Page extends Model
         return $page;
     }
 
+    public function findById($id)
+    {
+        $sql = 'select * from pages where id = ? limit 1';
+
+        $pages = $this->db->exec($sql, [$id]);
+        if (!$page = @$pages[0]) {
+            $id = htmlspecialchars($id);
+            http_response_code(404);
+            throw new \Exception("Page with id: {$id} not found!");
+        }
+
+        return $page;
+    }
 }

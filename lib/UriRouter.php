@@ -92,4 +92,11 @@ class UriRouter extends Router
         $this->action     = 'index';
     }
 
+    public function getPrefix()
+    {
+        $allowedRoutes = Config::get('routes');
+
+        return $allowedRoutes[ $this->route ];
+    }
+
 }

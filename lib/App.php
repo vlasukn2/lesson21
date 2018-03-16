@@ -33,18 +33,16 @@ class App
 
         $router->parseUrl($params);
 
-        $controllerName = ucfirst($router->getController()) . 'Controller';
         $actionName     = $router->getPrefix() . $router->getAction() . 'Action';
 //        $params         = $router->getParams();
 
 
         LangFiles::getInstance()->load( $router->getLang() );
 
-
-        $controllerName = "controller\\$controllerName";
-
         /** @var Controller $controller */
-        $controller = new $controllerName();
+        $controller = (new ControllerFactory())->createController($router);
+
+
         $controller->setParams( $router->getParams() );
         $path = $controller->$actionName();
 

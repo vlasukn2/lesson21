@@ -47,14 +47,19 @@ class App
         $path = $controller->$actionName();
 
 
+        $viewBuilder = new ViewBuilder();
+        $innerView = $viewBuilder
+            ->setRouter($router)
+            ->getView()
+        ;
 
-        $innerView = new View( $router->getController(), $router->getPrefix() . $router->getAction() );
+
         $innerData = $controller->getData();
 //        $innerData['lang'] = $lang;
         $content = $innerView->render($innerData, $path);
 
 
-        $view = new View();
+        $view = (new ViewBuilder())->getView();
         $data = ['content' => $content];
 
         return $view->render($data, "../view/{$router->getRoute()}.php" );

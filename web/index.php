@@ -2,8 +2,9 @@
 use lib\App;
 use lib\Router;
 use controller\PageController;
+use Monolog\Logger;
 
-
+require "../vendor/autoload.php";
 require "../lib/autoload.php";
 require "../lib/functions.php";
 session_start();

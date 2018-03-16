@@ -1,5 +1,7 @@
 <?php
 namespace lib;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 /**
  * Created by PhpStorm.
@@ -11,7 +13,12 @@ class App
 {
     public function __construct()
     {
-        set_exception_handler(function($e){
+        $logger = new Logger('file_log');
+        $logger->pushHandler(new StreamHandler('C:\xampp\htdocs\21\log\log.txt', Logger::WARNING));
+
+
+        set_exception_handler(function($e) use ($logger) {
+            $logger->err($e->getMessage());
             echo "<div style='color: red;'>{$e->getMessage()}</div>";
             die;
         });

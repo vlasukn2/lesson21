@@ -12,6 +12,8 @@ namespace controller;
 use lib\Controller;
 use model\Message;
 use PHPMailer\PHPMailer\PHPMailer;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ContactController extends  Controller
 {
@@ -33,6 +35,7 @@ class ContactController extends  Controller
         $this->model->addMessage([$name, $email, $message]);
         $this->setFlash("Message added!");
 
+        $this->createXLS($name, $email, $message);
 
         if ($this->sendEmail($name, $email, $message)) {
             $this->redirect('/21/web/contact');
@@ -101,6 +104,23 @@ BODY;
 
             $this->setFlash($e->getMessage());
         }
+    }
+
+    private function createXLS($name, $email, $message)
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Name');
+        $sheet->setCellValue('B1', 'Email');
+        $sheet->setCellValue('C1', 'Message');
+
+        $sheet->setCellValue('A2', $name);
+        $sheet->setCellValue('B2', $email);
+        $sheet->setCellValue('C2', $message);
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('contacts.xlsx');
     }
 
 }

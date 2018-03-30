@@ -2,6 +2,8 @@
 namespace lib;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Twig_Environment;
+use Twig_Loader_Filesystem;
 
 /**
  * Created by PhpStorm.
@@ -44,8 +46,23 @@ class App
 
 
         $controller->setParams( $router->getParams() );
+
         $path = $controller->$actionName();
 
+//        return $this->buildOldView($router, $controller, $path);
+        return $this->buildNewView($router, $controller, $path);
+    }
+
+    /**
+     * Build view in old way
+     * @param $router
+     * @param $controller
+     * @param $path
+     * @return string
+     * @throws \Exception
+     */
+    public function buildOldView($router, $controller, $path)
+    {
 
         $viewBuilder = new ViewBuilder();
         $innerView = $viewBuilder
@@ -63,5 +80,18 @@ class App
         $data = ['content' => $content];
 
         return $view->render($data, "../view/{$router->getRoute()}.php" );
+    }
+
+    /**
+     *
+     */
+    public function buildNewView($router, $controller, $path)
+    {
+        $loader = new Twig_Loader_Filesystem('C:\xampp\htdocs\21\view_twig');
+        $twig = new Twig_Environment($loader, array(
+            'cache' => 'C:\xampp\htdocs\21\cache',
+        ));
+
+        return $twig->render('default.php', array('name' => 'Fabien'));
     }
 }

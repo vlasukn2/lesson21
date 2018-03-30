@@ -3,3 +3,5 @@
 test.php
 vendor
 log
+cache
+!cache/.gitkeep

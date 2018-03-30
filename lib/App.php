@@ -50,7 +50,7 @@ class App
         $path = $controller->$actionName();
 
 //        return $this->buildOldView($router, $controller, $path);
-        return $this->buildNewView($router, $controller, $path);
+        return $this->buildNewView($router, $controller);
     }
 
     /**
@@ -83,15 +83,21 @@ class App
     }
 
     /**
-     *
+     * @param Router $router
+     * @return string
      */
-    public function buildNewView($router, $controller, $path)
+    public function buildNewView(Router $router, $controller)
     {
         $loader = new Twig_Loader_Filesystem('C:\xampp\htdocs\21\view_twig');
         $twig = new Twig_Environment($loader, array(
             'cache' => 'C:\xampp\htdocs\21\cache',
         ));
 
-        return $twig->render('default.php', array('name' => 'Fabien'));
+        $fileName = $router->getController() . '/' . $router->getAction();
+
+        $data = $controller->getData();
+        $data['flash'] = getFlash();
+
+        return $twig->render("$fileName.twig", $data);
     }
 }
